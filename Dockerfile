@@ -1,10 +1,7 @@
-FROM python:3.10
+FROM postgres:latest
 
-WORKDIR /app
+ENV POSTGRES_USER=admin
+ENV POSTGRES_PASSWORD=admin
+ENV POSTGRES_DB=escola
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY init.sql /docker-entrypoint-initdb.d/
